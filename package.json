@@ -7,15 +7,30 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@chakra-ui/react": "^3.8.1",
+    "@emotion/react": "^11.14.0",
+    "@storybook/addon-themes": "^8.5.8",
     "next": "15.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "3.2.4",
     "@eslint/eslintrc": "^3",
+    "@storybook/addon-essentials": "8.5.8",
+    "@storybook/addon-interactions": "8.5.8",
+    "@storybook/addon-onboarding": "8.5.8",
+    "@storybook/addons": "^7.6.17",
+    "@storybook/blocks": "8.5.8",
+    "@storybook/nextjs": "8.5.8",
+    "@storybook/react": "^8.5.8",
+    "@storybook/test": "8.5.8",
+    "@storybook/theming": "^8.5.8",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -23,9 +38,11 @@
     "eslint-config-next": "15.1.6",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-storybook": "^0.11.3",
     "husky": "^8.0.0",
     "lint-staged": "^15.4.3",
     "prettier": "^3.5.2",
+    "storybook": "8.5.8",
     "typescript": "^5"
   },
   "lint-staged": {
@@ -35,6 +52,11 @@
     ],
     "*.{json,css,md,scss,html}": [
       "prettier --write"
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:storybook/recommended"
     ]
   }
 }
