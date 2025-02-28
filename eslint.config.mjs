@@ -1,16 +1,60 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
+import pluginJs from "@eslint/js";
+import prettierConfig from "eslint-config-prettier";
+import importPlugin from "eslint-plugin-import";
+import pluginReact from "eslint-plugin-react";
+import globals from "globals";
+import tsEslint from "typescript-eslint";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+// Пример настроек для Google-стиля.
+// Заметьте, что google-конфигурация в формате legacy, поэтому здесь мы вручную задаём ключевые правила.
+const googleRules = {
+  semi: ["error", "always"],
+  quotes: ["error", "double"],
+};
 
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+export default [
+  // Сначала базовые рекомендуемые настройки:
+  pluginJs.configs.recommended,
+  ...tsEslint.configs.recommended,
+  pluginReact.configs.flat.recommended,
+  // Затем ваши пользовательские настройки, которые будут иметь приоритет:
+  {
+    files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
+    languageOptions: {
+      parserOptions: {
+        sourceType: "module",
+      },
+      globals: globals.browser,
+    },
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
+    plugins: {
+      react: pluginReact,
+      import: importPlugin,
+    },
+    rules: {
+      ...googleRules,
+      "react/react-in-jsx-scope": "off",
+      "import/order": [
+        "error",
+        {
+          groups: [
+            "builtin", // встроенные модули Node.js
+            "external", // пакеты из node_modules
+            "internal", // модули приложения
+            "parent", // импорты из родительских директорий
+            "sibling", // импорты из соседних файлов
+            "index", // импорт из index файла
+          ],
+          "newlines-between": "always",
+          alphabetize: { order: "asc", caseInsensitive: true },
+        },
+      ],
+      // Отключаем правила, конфликтующие с Prettier
+      ...prettierConfig.rules,
+    },
+  },
 ];
-
-export default eslintConfig;
