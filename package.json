@@ -12,6 +12,10 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^6.4.6",
+    "@mui/material": "^6.4.6",
     "next": "15.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
@@ -22,6 +26,8 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@typescript-eslint/eslint-plugin": "^8.25.0",
+    "@typescript-eslint/parser": "^8.25.0",
     "eslint": "^9.21.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-next": "15.1.6",
@@ -32,8 +38,7 @@
     "husky": "^8.0.0",
     "lint-staged": "^15.4.3",
     "prettier": "^3.5.2",
-    "typescript": "^5",
-    "typescript-eslint": "^8.25.0"
+    "typescript": "^5"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [

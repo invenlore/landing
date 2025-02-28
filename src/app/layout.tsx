@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
+import { Montserrat } from "next/font/google";
 
+import CustomThemeProvider from "@/providers/CustomThemeProvider";
 import "./globals.css";
 
-const roboto = Roboto({
+const montserrat = Montserrat({
   subsets: ["latin"],
-  weight: "400",
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -15,12 +16,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body className={roboto.className}>{children}</body>
+      <body className={montserrat.className}>
+        <CustomThemeProvider>{children}</CustomThemeProvider>
+      </body>
     </html>
   );
 }
