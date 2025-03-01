@@ -1,10 +1,10 @@
 "use client";
 
+import { ReactNode, useState } from "react";
 import { Brightness4, Brightness7 } from "@mui/icons-material";
 import CssBaseline from "@mui/material/CssBaseline";
 import IconButton from "@mui/material/IconButton";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { useState, ReactNode } from "react";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const lightTheme = createTheme({
   palette: {

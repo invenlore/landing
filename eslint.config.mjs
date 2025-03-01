@@ -1,65 +1,68 @@
-// // eslint.config.mjs
-// import pluginJs from "@eslint/js";
-// import prettierConfig from "eslint-config-prettier";
-// import importPlugin from "eslint-plugin-import";
-// import pluginReact from "eslint-plugin-react";
-// import globals from "globals";
-// import tsRecommended from "@typescript-eslint/eslint-plugin/dist/configs/recommended.flat.js";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { FlatCompat } from "@eslint/eslintrc";
+import js from "@eslint/js";
+import typescriptEslintEslintPlugin from "@typescript-eslint/eslint-plugin";
+import tsParser from "@typescript-eslint/parser";
+import prettier from "eslint-plugin-prettier";
 
-// const googleRules = {
-//   semi: ["error", "always"],
-//   quotes: ["error", "double"],
-// };
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// export default [
-//   // Базовые рекомендуемые настройки:
-//   pluginJs.configs.recommended,
-//   tsRecommended,
-//   pluginReact.configs.flat.recommended,
-//   // Пользовательские настройки:
-//   {
-//     files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
-//     languageOptions: {
-//       parser: "@typescript-eslint/parser",
-//       parserOptions: {
-//         sourceType: "module",
-//       },
-//       globals: globals.browser,
-//     },
-//     settings: {
-//       react: {
-//         version: "detect",
-//       },
-//     },
-//     plugins: {
-//       react: pluginReact,
-//       import: importPlugin,
-//     },
-//     rules: {
-//       ...googleRules,
-//       "react/react-in-jsx-scope": "off",
-//       "import/order": [
-//         "error",
-//         {
-//           groups: [
-//             "builtin",
-//             "external",
-//             "internal",
-//             "parent",
-//             "sibling",
-//             "index",
-//           ],
-//           "newlines-between": "always",
-//           alphabetize: { order: "asc", caseInsensitive: true },
-//         },
-//       ],
-      
-//       ...prettierConfig.rules,
-//       "@typescript-eslint/no-unused-vars": "off",
-//       "@typescript-eslint/no-empty-object-type": "off",
-//       "@typescript-eslint/no-unsafe-function-type": "off",
-//       "@typescript-eslint/no-explicit-any": "off",
-//     },
-//     ignores: [".next/*"],
-//   },
-// ];
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+  recommendedConfig: js.configs.recommended,
+  allConfig: js.configs.all,
+});
+
+export default [
+  ...compat.extends("next", "next/core-web-vitals", "prettier"),
+  {
+    plugins: {
+      prettier,
+    },
+    rules: {
+      "prettier/prettier": "error",
+      camelcase: "off",
+      "import/prefer-default-export": "off",
+      "react/jsx-filename-extension": "off",
+      "react/jsx-props-no-spreading": "off",
+      "react/no-unused-prop-types": "off",
+      "react/require-default-props": "off",
+      "react/no-unescaped-entities": "off",
+      "import/extensions": [
+        "error",
+        "ignorePackages",
+        {
+          ts: "never",
+          tsx: "never",
+          js: "never",
+          jsx: "never",
+        },
+      ],
+    },
+  },
+  ...compat
+    .extends("plugin:@typescript-eslint/recommended", "prettier")
+    .map((config) => ({
+      ...config,
+      files: ["**/*.+(ts|tsx)"],
+    })),
+  {
+    files: ["**/*.+(ts|tsx)"],
+    plugins: {
+      "@typescript-eslint": typescriptEslintEslintPlugin,
+    },
+    languageOptions: {
+      parser: tsParser,
+    },
+    rules: {
+      "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/explicit-module-boundary-types": "off",
+      "no-use-before-define": [0],
+      "@typescript-eslint/no-use-before-define": [1],
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-var-requires": "off",
+    },
+  },
+];
