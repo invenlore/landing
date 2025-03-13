@@ -1,15 +1,9 @@
-import { Box } from "@mui/material";
+import Header from "@/components/Header";
 
 export default function Home() {
   return (
-    <Box
-      sx={{
-        p: 4,
-        bgcolor: "background.default",
-        color: "text.primary",
-      }}
-    >
-      <span>psdfp</span>
-    </Box>
+    <main className="relative min-h-screen w-screen overflow-x-hidden">
+      <Header />
+    </main>
   );
 }
