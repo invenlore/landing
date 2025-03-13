@@ -49,11 +49,11 @@ body {
     @apply relative text-sm uppercase after:absolute after:-bottom-0.5 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100 dark:after:bg-white cursor-pointer;
     margin-inline-start: 2.5rem;
     font-family: "general", sans-serif;
-    color: #F4A900;
+    color: #f4a900;
   }
-  
+
   .nav-hover-btn::after {
-    background-color: #F4A900;
+    background-color: #f4a900;
   }
 
   .floating-nav {
@@ -94,9 +94,19 @@ body {
   .animated-title {
     @apply flex flex-col gap-1 text-7xl uppercase leading-[.8] text-white sm:px-32 md:text-[6rem];
   }
-
+  .animated-text {
+    background: radial-gradient(
+      circle at var(--text-mouse-x) var(--text-mouse-y),
+      var(--gradient-text-center) 0%,
+      var(--gradient-text-edge) 40%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
   .animated-word {
-    @apply  font-black opacity-0;
+    @apply font-black opacity-0;
     font-family: "Zentry";
     font-feature-settings: "ss01" on;
     transform: translate3d(10px, 51px, -60px) rotateY(60deg) rotateX(-40deg);
@@ -108,7 +118,6 @@ body {
     @apply relative border col-span-2 overflow-hidden rounded-md transition-transform duration-300 ease-out;
     border-color: rgba(255, 255, 255, 0.2);
   }
-  
 
   .bento-tilt_2 {
     @apply relative col-span-1 row-span-1 overflow-hidden rounded-md transition-transform duration-300 ease-out;
@@ -161,8 +170,7 @@ body {
 
 .indicator-line {
   @apply h-1 w-px rounded-full transition-all duration-200 ease-in-out;
-  background-color: #F4A900;
-
+  background-color: #f4a900;
 }
 
 .indicator-line.active {
